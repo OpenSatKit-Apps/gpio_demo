@@ -116,8 +116,7 @@ void GPIO_CTRL_ResetStatus(void)
 bool GPIO_CTRL_SetOnTimeCmd(void* DataObjPtr, const CFE_SB_Buffer_t* SbBufPtr)
 {
    
-   const GPIO_CTRL_SetOnTimeCmdMsg *Cmd = (const GPIO_CTRL_SetOnTimeCmdMsg *) SbBufPtr;
-
+   const GPIO_DEMO_SetOnTime_Payload_t *Cmd = CMDMGR_PAYLOAD_PTR(SbBufPtr, GPIO_DEMO_SetOnTime_t);
    bool RetStatus = true;
   
    GpioCtrl->OnTime = Cmd->OnTime;
@@ -138,8 +137,7 @@ bool GPIO_CTRL_SetOnTimeCmd(void* DataObjPtr, const CFE_SB_Buffer_t* SbBufPtr)
 bool GPIO_CTRL_SetOffTimeCmd(void* DataObjPtr, const CFE_SB_Buffer_t* SbBufPtr)
 {
    
-   const GPIO_CTRL_SetOffTimeCmdMsg *Cmd = (const GPIO_CTRL_SetOffTimeCmdMsg *) SbBufPtr;
-
+   const GPIO_DEMO_SetOffTime_Payload_t *Cmd = CMDMGR_PAYLOAD_PTR(SbBufPtr, GPIO_DEMO_SetOffTime_t);
    bool RetStatus = true;
   
    GpioCtrl->OffTime = Cmd->OffTime;  

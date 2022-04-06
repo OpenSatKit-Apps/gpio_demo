@@ -33,7 +33,7 @@
 
 #include <string.h>
 #include "gpio_demo_app.h"
-
+#include "gpio_demo_eds_cc.h"
 
 /***********************/
 /** Macro Definitions **/
@@ -155,27 +155,27 @@ bool GPIO_DEMO_ResetAppCmd(void* ObjDataPtr, const CFE_SB_Buffer_t* SbBufPtr)
 ** Function: SendHousekeepingPkt
 **
 */
-void SendHousekeepingPkt(void)
+static void SendHousekeepingPkt(void)
 {
    
-   GpioDemo.HkPkt.ValidCmdCnt   = GpioDemo.CmdMgr.ValidCmdCnt;
-   GpioDemo.HkPkt.InvalidCmdCnt = GpioDemo.CmdMgr.InvalidCmdCnt;
+   GpioDemo.HkTlm.Payload.ValidCmdCnt   = GpioDemo.CmdMgr.ValidCmdCnt;
+   GpioDemo.HkTlm.Payload.InvalidCmdCnt = GpioDemo.CmdMgr.InvalidCmdCnt;
 
    /*
    ** Controller 
    */ 
    
-   GpioDemo.HkPkt.CtrlIsMapped = GpioDemo.GpioCtrl.IsMapped;
-   GpioDemo.HkPkt.CtrlOutPin   = GpioDemo.GpioCtrl.OutPin;
+   GpioDemo.HkTlm.Payload.CtrlIsMapped = GpioDemo.GpioCtrl.IsMapped;
+   GpioDemo.HkTlm.Payload.CtrlOutPin   = GpioDemo.GpioCtrl.OutPin;
    
-   GpioDemo.HkPkt.CtrlLedOn    = GpioDemo.GpioCtrl.LedOn;
-   GpioDemo.HkPkt.CtrlSpare    = 5;
+   GpioDemo.HkTlm.Payload.CtrlLedOn    = GpioDemo.GpioCtrl.LedOn;
+   GpioDemo.HkTlm.Payload.CtrlSpare    = 5;
          
-   GpioDemo.HkPkt.CtrlOnTime   = GpioDemo.GpioCtrl.OnTime;
-   GpioDemo.HkPkt.CtrlOffTime  = GpioDemo.GpioCtrl.OffTime;
+   GpioDemo.HkTlm.Payload.CtrlOnTime   = GpioDemo.GpioCtrl.OnTime;
+   GpioDemo.HkTlm.Payload.CtrlOffTime  = GpioDemo.GpioCtrl.OffTime;
    
-   CFE_SB_TimeStampMsg(CFE_MSG_PTR(GpioDemo.HkPkt.TlmHeader));
-   CFE_SB_TransmitMsg(CFE_MSG_PTR(GpioDemo.HkPkt.TlmHeader), true);
+   CFE_SB_TimeStampMsg(CFE_MSG_PTR(GpioDemo.HkTlm.TelemetryHeader));
+   CFE_SB_TransmitMsg(CFE_MSG_PTR(GpioDemo.HkTlm.TelemetryHeader), true);
    
 } /* End SendHousekeepingPkt() */
 
@@ -233,10 +233,10 @@ static int32 InitApp(void)
       CMDMGR_RegisterFunc(CMDMGR_OBJ, CMDMGR_NOOP_CMD_FC,   NULL, GPIO_DEMO_NoOpCmd,     0);
       CMDMGR_RegisterFunc(CMDMGR_OBJ, CMDMGR_RESET_CMD_FC,  NULL, GPIO_DEMO_ResetAppCmd, 0);
 
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, GPIO_CTRL_SET_ON_TIME_CMD_FC,  GPIO_CTRL_OBJ, GPIO_CTRL_SetOnTimeCmd,  GPIO_CTRL_SET_ON_TIME_CMD_DATA_LEN);
-      CMDMGR_RegisterFunc(CMDMGR_OBJ, GPIO_CTRL_SET_OFF_TIME_CMD_FC, GPIO_CTRL_OBJ, GPIO_CTRL_SetOffTimeCmd, GPIO_CTRL_SET_OFF_TIME_CMD_DATA_LEN);
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, GPIO_DEMO_SET_ON_TIME_CC,  GPIO_CTRL_OBJ, GPIO_CTRL_SetOnTimeCmd,  sizeof(GPIO_DEMO_SetOnTime_Payload_t));
+      CMDMGR_RegisterFunc(CMDMGR_OBJ, GPIO_DEMO_SET_OFF_TIME_CC, GPIO_CTRL_OBJ, GPIO_CTRL_SetOffTimeCmd, sizeof(GPIO_DEMO_SetOffTime_Payload_t));
       
-      CFE_MSG_Init(CFE_MSG_PTR(GpioDemo.HkPkt.TlmHeader), CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_APP_HK_TLM_MID)), GPIO_DEMO_TLM_HK_LEN);
+      CFE_MSG_Init(CFE_MSG_PTR(GpioDemo.HkTlm.TelemetryHeader), CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_APP_HK_TLM_MID)), sizeof(GPIO_DEMO_HkTlm_t));
    
       /*
       ** Application startup event message

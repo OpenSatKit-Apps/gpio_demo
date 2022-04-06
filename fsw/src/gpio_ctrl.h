@@ -59,13 +59,13 @@
 ** Command Packets
 */
 
-
+/* TODO - Remove
 typedef struct
 {
 
    CFE_MSG_CommandHeader_t CmdHeader;
    
-   uint32  OnTime;                      /* Time (milliseconds) to keep LED on */
+   uint32  OnTime;                      // Time (milliseconds) to keep LED on
    
 } GPIO_CTRL_SetOnTimeCmdMsg;
 #define GPIO_CTRL_SET_ON_TIME_CMD_DATA_LEN  (sizeof(GPIO_CTRL_SetOnTimeCmdMsg) - sizeof(CFE_MSG_CommandHeader_t))
@@ -76,11 +76,11 @@ typedef struct
 
    CFE_MSG_CommandHeader_t CmdHeader;
    
-   uint32  OffTime;                      /* Time (milliseconds) to keep LED off */
+   uint32  OffTime;                      // Time (milliseconds) to keep LED off
    
 } GPIO_CTRL_SetOffTimeCmdMsg;
 #define GPIO_CTRL_SET_OFF_TIME_CMD_DATA_LEN  (sizeof(GPIO_CTRL_SetOffTimeCmdMsg) - sizeof(CFE_MSG_CommandHeader_t))
-
+*/
 
 /******************************************************************************
 ** Telmetery Packets

@@ -69,22 +69,19 @@
 ** Telemetry Packets
 */
 
+/* TODO - Remove
 typedef struct 
 {
 
    CFE_MSG_TelemetryHeader_t TlmHeader;
    
-   /*
-   ** Framework Status
-   */
+   // Framework Status
    
    uint16   ValidCmdCnt;
    uint16   InvalidCmdCnt;
 
 
-   /*
-   ** Controller 
-   */ 
+   // Controller  
    
    uint8    CtrlIsMapped;
    uint8    CtrlOutPin;
@@ -97,7 +94,7 @@ typedef struct
 
 } GPIO_DEMO_HkPkt;
 #define GPIO_DEMO_TLM_HK_LEN sizeof (GPIO_DEMO_HkPkt)
-
+*/
 
 /******************************************************************************
 ** GPIO_DEMO_Class
@@ -109,17 +106,17 @@ typedef struct
    ** App Framework
    */ 
    
-   INITBL_Class_t    IniTbl; 
-   CFE_SB_PipeId_t   CmdPipe;
-   CMDMGR_Class_t    CmdMgr;
-   CHILDMGR_Class_t  ChildMgr;   
+   INITBL_Class_t     IniTbl; 
+   CFE_SB_PipeId_t    CmdPipe;
+   CMDMGR_Class_t     CmdMgr;
+   CHILDMGR_Class_t   ChildMgr;   
    
    /*
    ** Telemetry Packets
    */
    
-   GPIO_DEMO_HkPkt  HkPkt;
-   
+   GPIO_DEMO_HkTlm_t  HkTlm;
+
    /*
    ** App State & Objects
    */ 

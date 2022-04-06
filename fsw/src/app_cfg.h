@@ -36,6 +36,9 @@
 ** Includes
 */
 
+#include "gpio_demo_eds_typedefs.h"
+//#include "gpio_demo_eds_designparameters.h"
+
 #include "gpio_demo_platform_cfg.h"
 #include "osk_c_fw.h"
 
@@ -118,9 +121,6 @@ DECLARE_ENUM(Config,APP_CONFIG)
 
 #define GPIO_DEMO_TBL_LOAD_CMD_FC      (CMDMGR_APP_START_FC + 0)
 #define GPIO_DEMO_TBL_DUMP_CMD_FC      (CMDMGR_APP_START_FC + 1)
-
-#define GPIO_CTRL_SET_ON_TIME_CMD_FC   (CMDMGR_APP_START_FC + 2)
-#define GPIO_CTRL_SET_OFF_TIME_CMD_FC  (CMDMGR_APP_START_FC + 3)
 
 
 /******************************************************************************
