@@ -59,7 +59,7 @@
 ** Command Packets
 */
 
-/* TODO - Remove
+/* TODO - Remove after EDS complete
 typedef struct
 {
 
