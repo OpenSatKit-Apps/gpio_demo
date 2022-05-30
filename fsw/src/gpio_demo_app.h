@@ -69,7 +69,7 @@
 ** Telemetry Packets
 */
 
-/* TODO - Remove
+/* TODO - Remove once EDS verified
 typedef struct 
 {
 
@@ -153,14 +153,14 @@ void GPIO_DEMO_AppMain(void);
 ** Function: GPIO_DEMO_NoOpCmd
 **
 */
-bool GPIO_DEMO_NoOpCmd(void* ObjDataPtr, const CFE_SB_Buffer_t* SbBufPtr);
+bool GPIO_DEMO_NoOpCmd(void* ObjDataPtr, const CFE_MSG_Message_t *MsgPtr);
 
 
 /******************************************************************************
 ** Function: GPIO_DEMO_ResetAppCmd
 **
 */
-bool GPIO_DEMO_ResetAppCmd(void* ObjDataPtr, const CFE_SB_Buffer_t* SbBufPtr);
+bool GPIO_DEMO_ResetAppCmd(void* ObjDataPtr, const CFE_MSG_Message_t *MsgPtr);
 
 
 /******************************************************************************

@@ -116,7 +116,7 @@ void GPIO_DEMO_AppMain(void)
 **
 */
 
-bool GPIO_DEMO_NoOpCmd(void* ObjDataPtr, const CFE_SB_Buffer_t* SbBufPtr)
+bool GPIO_DEMO_NoOpCmd(void* ObjDataPtr, const CFE_MSG_Message_t *MsgPtr)
 {
 
    CFE_EVS_SendEvent (GPIO_DEMO_NOOP_EID, CFE_EVS_EventType_INFORMATION,
@@ -138,7 +138,7 @@ bool GPIO_DEMO_NoOpCmd(void* ObjDataPtr, const CFE_SB_Buffer_t* SbBufPtr)
 **
 */
 
-bool GPIO_DEMO_ResetAppCmd(void* ObjDataPtr, const CFE_SB_Buffer_t* SbBufPtr)
+bool GPIO_DEMO_ResetAppCmd(void* ObjDataPtr, const CFE_MSG_Message_t *MsgPtr)
 {
 
    CMDMGR_ResetStatus(CMDMGR_OBJ);
@@ -158,21 +158,23 @@ bool GPIO_DEMO_ResetAppCmd(void* ObjDataPtr, const CFE_SB_Buffer_t* SbBufPtr)
 static void SendHousekeepingPkt(void)
 {
    
-   GpioDemo.HkTlm.Payload.ValidCmdCnt   = GpioDemo.CmdMgr.ValidCmdCnt;
-   GpioDemo.HkTlm.Payload.InvalidCmdCnt = GpioDemo.CmdMgr.InvalidCmdCnt;
+   GPIO_DEMO_HkTlm_Payload_t *HkTlmPayload = &GpioDemo.HkPkt.Payload;
+   
+   HkTlmPayload->ValidCmdCnt   = GpioDemo.CmdMgr.ValidCmdCnt;
+   HkTlmPayload->InvalidCmdCnt = GpioDemo.CmdMgr.InvalidCmdCnt;
 
    /*
    ** Controller 
    */ 
    
-   GpioDemo.HkTlm.Payload.CtrlIsMapped = GpioDemo.GpioCtrl.IsMapped;
-   GpioDemo.HkTlm.Payload.CtrlOutPin   = GpioDemo.GpioCtrl.OutPin;
+   HkTlmPayload->CtrlIsMapped = GpioDemo.GpioCtrl.IsMapped;
+   HkTlmPayload->CtrlOutPin   = GpioDemo.GpioCtrl.OutPin;
    
-   GpioDemo.HkTlm.Payload.CtrlLedOn    = GpioDemo.GpioCtrl.LedOn;
-   GpioDemo.HkTlm.Payload.CtrlSpare    = 5;
+   HkTlmPayload->CtrlLedOn    = GpioDemo.GpioCtrl.LedOn;
+   HkTlmPayload->CtrlSpare    = 5;
          
-   GpioDemo.HkTlm.Payload.CtrlOnTime   = GpioDemo.GpioCtrl.OnTime;
-   GpioDemo.HkTlm.Payload.CtrlOffTime  = GpioDemo.GpioCtrl.OffTime;
+   HkTlmPayload->CtrlOnTime   = GpioDemo.GpioCtrl.OnTime;
+   HkTlmPayload->CtrlOffTime  = GpioDemo.GpioCtrl.OffTime;
    
    CFE_SB_TimeStampMsg(CFE_MSG_PTR(GpioDemo.HkTlm.TelemetryHeader));
    CFE_SB_TransmitMsg(CFE_MSG_PTR(GpioDemo.HkTlm.TelemetryHeader), true);
@@ -281,7 +283,7 @@ static int32 ProcessCommands(void)
          if (CFE_SB_MsgId_Equal(MsgId, GpioDemo.CmdMid)) 
          {
             
-            CMDMGR_DispatchFunc(CMDMGR_OBJ, SbBufPtr);
+            CMDMGR_DispatchFunc(CMDMGR_OBJ, &SbBufPtr->Msg);
          
          } 
          else if (CFE_SB_MsgId_Equal(MsgId, GpioDemo.SendHkMid))

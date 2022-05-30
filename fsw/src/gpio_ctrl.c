@@ -34,8 +34,6 @@
 #include <string.h>
 
 #include "app_cfg.h"
-#include "initbl.h"
-#include "childmgr.h"
 #include "gpio_ctrl.h"
 #include "gpio.h"
 
@@ -113,10 +111,10 @@ void GPIO_CTRL_ResetStatus(void)
 **   1. No limits placed on commanded value.
 **
 */
-bool GPIO_CTRL_SetOnTimeCmd(void* DataObjPtr, const CFE_SB_Buffer_t* SbBufPtr)
+bool GPIO_CTRL_SetOnTimeCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr)
 {
    
-   const GPIO_DEMO_SetOnTime_Payload_t *Cmd = CMDMGR_PAYLOAD_PTR(SbBufPtr, GPIO_DEMO_SetOnTime_t);
+   const GPIO_DEMO_SetOnTime_Payload_t *Cmd = CMDMGR_PAYLOAD_PTR(MsgPtr, GPIO_DEMO_SetOnTime_t);
    bool RetStatus = true;
   
    GpioCtrl->OnTime = Cmd->OnTime;
@@ -134,10 +132,10 @@ bool GPIO_CTRL_SetOnTimeCmd(void* DataObjPtr, const CFE_SB_Buffer_t* SbBufPtr)
 **   1. No limits placed on commanded value.
 **
 */
-bool GPIO_CTRL_SetOffTimeCmd(void* DataObjPtr, const CFE_SB_Buffer_t* SbBufPtr)
+bool GPIO_CTRL_SetOffTimeCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr)
 {
    
-   const GPIO_DEMO_SetOffTime_Payload_t *Cmd = CMDMGR_PAYLOAD_PTR(SbBufPtr, GPIO_DEMO_SetOffTime_t);
+   const GPIO_DEMO_SetOffTime_Payload_t *Cmd = CMDMGR_PAYLOAD_PTR(MsgPtr, GPIO_DEMO_SetOffTime_t);
    bool RetStatus = true;
   
    GpioCtrl->OffTime = Cmd->OffTime;  

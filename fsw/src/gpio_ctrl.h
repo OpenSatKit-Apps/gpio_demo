@@ -134,7 +134,7 @@ typedef struct
 **   1. This must be called prior to any other function.
 **
 */
-void GPIO_CTRL_Constructor(GPIO_CTRL_Class_t *FilePtr, INITBL_Class_t* IniTbl);
+void GPIO_CTRL_Constructor(GPIO_CTRL_Class_t *GpioCtrlPtr, INITBL_Class_t* IniTbl);
 
 
 /******************************************************************************
@@ -154,14 +154,14 @@ void GPIO_CTRL_ResetStatus(void);
 ** Function: GPIO_CTRL_SetOnTimeCmd
 **
 */
-bool GPIO_CTRL_SetOnTimeCmd(void* DataObjPtr, const CFE_SB_Buffer_t* SbBufPtr);
+bool GPIO_CTRL_SetOnTimeCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr);
 
 
 /******************************************************************************
 ** Function: GPIO_CTRL_SetOffTimeCmd
 **
 */
-bool GPIO_CTRL_SetOffTimeCmd(void* DataObjPtr, const CFE_SB_Buffer_t* SbBufPtr);
+bool GPIO_CTRL_SetOffTimeCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr);
 
 
 /******************************************************************************

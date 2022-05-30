@@ -143,6 +143,7 @@
               <GenericTypeMap name="TelemetryDataType" type="HkTlm" />
             </GenericTypeMapSet>
           </Interface>
+          
         </RequiredInterfaceSet>
 
         <!--***************************************-->
