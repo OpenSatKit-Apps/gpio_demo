@@ -1,19 +1,16 @@
 /*
-**  Copyright 2022 Open STEMware Foundation
+**  Copyright 2022 bitValence, Inc.
 **  All Rights Reserved.
 **
-**  This program is free software; you can modify and/or redistribute it under
-**  the terms of the GNU Affero General Public License as published by the Free
-**  Software Foundation; version 3 with attribution addendums as found in the
-**  LICENSE.txt
+**  This program is free software; you can modify and/or redistribute it
+**  under the terms of the GNU Affero General Public License
+**  as published by the Free Software Foundation; version 3 with
+**  attribution addendums as found in the LICENSE.txt
 **
-**  This program is distributed in the hope that it will be useful, but WITHOUT
-**  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-**  FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
-**  details.
-**  
-**  This program may also be used under the terms of a commercial or enterprise
-**  edition license of cFSAT if purchased from the copyright holder.
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU Affero General Public License for more details.
 **
 **  Purpose:
 **    Define GPIO Controller class
@@ -138,6 +135,13 @@ void GPIO_CTRL_Constructor(GPIO_CTRL_Class_t *GpioCtrlPtr, INITBL_Class_t* IniTb
 
 
 /******************************************************************************
+** Function: GPIO_CTRL_ChildTask
+**
+*/
+bool GPIO_CTRL_ChildTask(CHILDMGR_Class_t* ChildMgr);
+
+
+/******************************************************************************
 ** Function: GPIO_CTRL_ResetStatus
 **
 ** Reset counters and status flags to a known reset state.
@@ -151,13 +155,6 @@ void GPIO_CTRL_ResetStatus(void);
 
 
 /******************************************************************************
-** Function: GPIO_CTRL_SetOnTimeCmd
-**
-*/
-bool GPIO_CTRL_SetOnTimeCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr);
-
-
-/******************************************************************************
 ** Function: GPIO_CTRL_SetOffTimeCmd
 **
 */
@@ -165,10 +162,10 @@ bool GPIO_CTRL_SetOffTimeCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr);
 
 
 /******************************************************************************
-** Function: GPIO_CTRL_ChildTask
+** Function: GPIO_CTRL_SetOnTimeCmd
 **
 */
-bool GPIO_CTRL_ChildTask(CHILDMGR_Class_t* ChildMgr);
+bool GPIO_CTRL_SetOnTimeCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr);
 
 
 #endif /* _gpio_ctrl_ */

@@ -1,19 +1,16 @@
 /*
-**  Copyright 2022 Open STEMware Foundation
+**  Copyright 2022 bitValence, Inc.
 **  All Rights Reserved.
 **
-**  This program is free software; you can modify and/or redistribute it under
-**  the terms of the GNU Affero General Public License as published by the Free
-**  Software Foundation; version 3 with attribution addendums as found in the
-**  LICENSE.txt
+**  This program is free software; you can modify and/or redistribute it
+**  under the terms of the GNU Affero General Public License
+**  as published by the Free Software Foundation; version 3 with
+**  attribution addendums as found in the LICENSE.txt
 **
-**  This program is distributed in the hope that it will be useful, but WITHOUT
-**  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-**  FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
-**  details.
-**  
-**  This program may also be used under the terms of a commercial or enterprise
-**  edition license of cFSAT if purchased from the copyright holder.
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU Affero General Public License for more details.
 **
 **  Purpose:
 **    Implement the GPIO Controller Class methods
@@ -87,66 +84,6 @@ void GPIO_CTRL_Constructor(GPIO_CTRL_Class_t *GpioCtrlPtr, INITBL_Class_t* IniTb
 
 
 /******************************************************************************
-** Function: GPIO_CTRL_ResetStatus
-**
-** Reset counters and status flags to a known reset state.
-**
-** Notes:
-**   1. Any counter or variable that is reported in HK telemetry that doesn't
-**      change the functional behavior should be reset.
-**
-*/
-void GPIO_CTRL_ResetStatus(void)
-{
-
-   return;
-
-} /* End GPIO_CTRL_ResetStatus() */
-
-
-/******************************************************************************
-** Function: GPIO_CTRL_SetOnTimeCmd
-**
-** Notes:
-**   1. No limits placed on commanded value.
-**
-*/
-bool GPIO_CTRL_SetOnTimeCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr)
-{
-   
-   const GPIO_DEMO_SetOnTime_Payload_t *Cmd = CMDMGR_PAYLOAD_PTR(MsgPtr, GPIO_DEMO_SetOnTime_t);
-   bool RetStatus = true;
-  
-   GpioCtrl->OnTime = Cmd->OnTime;
-   CFE_EVS_SendEvent (GPIO_CTRL_SET_ON_TIME_EID, CFE_EVS_EventType_INFORMATION, "GPIO on time set to %u milliseconds", GpioCtrl->OnTime);
-  
-   return RetStatus;   
-   
-} /* End GPIO_CTRL_SetOnTimeCmd() */
-
-
-/******************************************************************************
-** Function: GPIO_CTRL_SetOffTimeCmd
-**
-** Notes:
-**   1. No limits placed on commanded value.
-**
-*/
-bool GPIO_CTRL_SetOffTimeCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr)
-{
-   
-   const GPIO_DEMO_SetOffTime_Payload_t *Cmd = CMDMGR_PAYLOAD_PTR(MsgPtr, GPIO_DEMO_SetOffTime_t);
-   bool RetStatus = true;
-  
-   GpioCtrl->OffTime = Cmd->OffTime;  
-   CFE_EVS_SendEvent (GPIO_CTRL_SET_OFF_TIME_EID, CFE_EVS_EventType_INFORMATION, "GPIO off time set to %u milliseconds", GpioCtrl->OffTime);
-  
-   return RetStatus;   
-   
-} /* End GPIO_CTRL_SetOffTimeCmd() */
-
-
-/******************************************************************************
 ** Function: GPIO_CTRL_ChildTask
 **
 */
@@ -177,4 +114,64 @@ bool GPIO_CTRL_ChildTask(CHILDMGR_Class_t* ChildMgr)
    return true;
 
 } /* End GPIO_CTRL_ChildTask() */
+
+
+/******************************************************************************
+** Function: GPIO_CTRL_ResetStatus
+**
+** Reset counters and status flags to a known reset state.
+**
+** Notes:
+**   1. Any counter or variable that is reported in HK telemetry that doesn't
+**      change the functional behavior should be reset.
+**
+*/
+void GPIO_CTRL_ResetStatus(void)
+{
+
+   return;
+
+} /* End GPIO_CTRL_ResetStatus() */
+
+
+/******************************************************************************
+** Function: GPIO_CTRL_SetOffTimeCmd
+**
+** Notes:
+**   1. No limits placed on commanded value.
+**
+*/
+bool GPIO_CTRL_SetOffTimeCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr)
+{
+   
+   const GPIO_DEMO_SetOffTime_Payload_t *Cmd = CMDMGR_PAYLOAD_PTR(MsgPtr, GPIO_DEMO_SetOffTime_t);
+   bool RetStatus = true;
+  
+   GpioCtrl->OffTime = Cmd->OffTime;  
+   CFE_EVS_SendEvent (GPIO_CTRL_SET_OFF_TIME_EID, CFE_EVS_EventType_INFORMATION, "GPIO off time set to %u milliseconds", GpioCtrl->OffTime);
+  
+   return RetStatus;   
+   
+} /* End GPIO_CTRL_SetOffTimeCmd() */
+
+
+/******************************************************************************
+** Function: GPIO_CTRL_SetOnTimeCmd
+**
+** Notes:
+**   1. No limits placed on commanded value.
+**
+*/
+bool GPIO_CTRL_SetOnTimeCmd(void* DataObjPtr, const CFE_MSG_Message_t *MsgPtr)
+{
+   
+   const GPIO_DEMO_SetOnTime_Payload_t *Cmd = CMDMGR_PAYLOAD_PTR(MsgPtr, GPIO_DEMO_SetOnTime_t);
+   bool RetStatus = true;
+  
+   GpioCtrl->OnTime = Cmd->OnTime;
+   CFE_EVS_SendEvent (GPIO_CTRL_SET_ON_TIME_EID, CFE_EVS_EventType_INFORMATION, "GPIO on time set to %u milliseconds", GpioCtrl->OnTime);
+  
+   return RetStatus;   
+   
+} /* End GPIO_CTRL_SetOnTimeCmd() */
 

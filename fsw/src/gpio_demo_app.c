@@ -1,19 +1,16 @@
 /*
-**  Copyright 2022 Open STEMware Foundation
+**  Copyright 2022 bitValence, Inc.
 **  All Rights Reserved.
 **
-**  This program is free software; you can modify and/or redistribute it under
-**  the terms of the GNU Affero General Public License as published by the Free
-**  Software Foundation; version 3 with attribution addendums as found in the
-**  LICENSE.txt
+**  This program is free software; you can modify and/or redistribute it
+**  under the terms of the GNU Affero General Public License
+**  as published by the Free Software Foundation; version 3 with
+**  attribution addendums as found in the LICENSE.txt
 **
-**  This program is distributed in the hope that it will be useful, but WITHOUT
-**  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-**  FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
-**  details.
-**  
-**  This program may also be used under the terms of a commercial or enterprise
-**  edition license of cFSAT if purchased from the copyright holder.
+**  This program is distributed in the hope that it will be useful,
+**  but WITHOUT ANY WARRANTY; without even the implied warranty of
+**  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**  GNU Affero General Public License for more details.
 **
 **  Purpose:
 **    Implement the GPIO Demo application
@@ -149,37 +146,6 @@ bool GPIO_DEMO_ResetAppCmd(void* ObjDataPtr, const CFE_MSG_Message_t *MsgPtr)
    return true;
 
 } /* End GPIO_DEMO_ResetAppCmd() */
-
-
-/******************************************************************************
-** Function: SendHousekeepingPkt
-**
-*/
-static void SendHousekeepingPkt(void)
-{
-   
-   GPIO_DEMO_HkTlm_Payload_t *HkTlmPayload = &GpioDemo.HkPkt.Payload;
-   
-   HkTlmPayload->ValidCmdCnt   = GpioDemo.CmdMgr.ValidCmdCnt;
-   HkTlmPayload->InvalidCmdCnt = GpioDemo.CmdMgr.InvalidCmdCnt;
-
-   /*
-   ** Controller 
-   */ 
-   
-   HkTlmPayload->CtrlIsMapped = GpioDemo.GpioCtrl.IsMapped;
-   HkTlmPayload->CtrlOutPin   = GpioDemo.GpioCtrl.OutPin;
-   
-   HkTlmPayload->CtrlLedOn    = GpioDemo.GpioCtrl.LedOn;
-   HkTlmPayload->CtrlSpare    = 5;
-         
-   HkTlmPayload->CtrlOnTime   = GpioDemo.GpioCtrl.OnTime;
-   HkTlmPayload->CtrlOffTime  = GpioDemo.GpioCtrl.OffTime;
-   
-   CFE_SB_TimeStampMsg(CFE_MSG_PTR(GpioDemo.HkTlm.TelemetryHeader));
-   CFE_SB_TransmitMsg(CFE_MSG_PTR(GpioDemo.HkTlm.TelemetryHeader), true);
-   
-} /* End SendHousekeepingPkt() */
 
 
 /******************************************************************************
@@ -319,4 +285,36 @@ static int32 ProcessCommands(void)
    return RetStatus;
 
 } /* End ProcessCommands() */
+
+
+/******************************************************************************
+** Function: SendHousekeepingPkt
+**
+*/
+static void SendHousekeepingPkt(void)
+{
+   
+   GPIO_DEMO_HkTlm_Payload_t *HkTlmPayload = &GpioDemo.HkTlm.Payload;
+   
+   HkTlmPayload->ValidCmdCnt   = GpioDemo.CmdMgr.ValidCmdCnt;
+   HkTlmPayload->InvalidCmdCnt = GpioDemo.CmdMgr.InvalidCmdCnt;
+
+   /*
+   ** Controller 
+   */ 
+   
+   HkTlmPayload->CtrlIsMapped = GpioDemo.GpioCtrl.IsMapped;
+   HkTlmPayload->CtrlOutPin   = GpioDemo.GpioCtrl.OutPin;
+   
+   HkTlmPayload->CtrlLedOn    = GpioDemo.GpioCtrl.LedOn;
+   HkTlmPayload->CtrlSpare    = 5;
+         
+   HkTlmPayload->CtrlOnTime   = GpioDemo.GpioCtrl.OnTime;
+   HkTlmPayload->CtrlOffTime  = GpioDemo.GpioCtrl.OffTime;
+   
+   CFE_SB_TimeStampMsg(CFE_MSG_PTR(GpioDemo.HkTlm.TelemetryHeader));
+   CFE_SB_TransmitMsg(CFE_MSG_PTR(GpioDemo.HkTlm.TelemetryHeader), true);
+   
+} /* End SendHousekeepingPkt() */
+
 
