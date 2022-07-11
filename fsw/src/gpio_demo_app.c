@@ -167,8 +167,8 @@ static int32 InitApp(void)
    {
    
       GpioDemo.PerfId    = INITBL_GetIntConfig(INITBL_OBJ, CFG_APP_PERF_ID);
-      GpioDemo.CmdMid    = CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_APP_CMD_MID));
-      GpioDemo.SendHkMid = CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_APP_SEND_HK_MID));
+      GpioDemo.CmdMid    = CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_GPIO_DEMO_CMD_TOPICID));
+      GpioDemo.SendHkMid = CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_GPIO_DEMO_SEND_HK_TOPICID));
       
       CFE_ES_PerfLogEntry(GpioDemo.PerfId);
 
@@ -204,7 +204,7 @@ static int32 InitApp(void)
       CMDMGR_RegisterFunc(CMDMGR_OBJ, GPIO_DEMO_SET_ON_TIME_CC,  GPIO_CTRL_OBJ, GPIO_CTRL_SetOnTimeCmd,  sizeof(GPIO_DEMO_SetOnTime_Payload_t));
       CMDMGR_RegisterFunc(CMDMGR_OBJ, GPIO_DEMO_SET_OFF_TIME_CC, GPIO_CTRL_OBJ, GPIO_CTRL_SetOffTimeCmd, sizeof(GPIO_DEMO_SetOffTime_Payload_t));
       
-      CFE_MSG_Init(CFE_MSG_PTR(GpioDemo.HkTlm.TelemetryHeader), CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_APP_HK_TLM_MID)), sizeof(GPIO_DEMO_HkTlm_t));
+      CFE_MSG_Init(CFE_MSG_PTR(GpioDemo.HkTlm.TelemetryHeader), CFE_SB_ValueToMsgId(INITBL_GetIntConfig(INITBL_OBJ, CFG_GPIO_DEMO_HK_TLM_TOPICID)), sizeof(GPIO_DEMO_HkTlm_t));
    
       /*
       ** Application startup event message

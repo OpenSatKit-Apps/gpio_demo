@@ -10,9 +10,9 @@
       "APP_CMD_PIPE_NAME":  "GPIO_DEMO_CMD",
       "APP_CMD_PIPE_DEPTH": 10,
       
-      "APP_CMD_MID"    : 6416,
-      "APP_SEND_HK_MID": 6417,
-      "APP_HK_TLM_MID" : 2320,
+      "GPIO_DEMO_CMD_TOPICID"    : 6416,
+      "GPIO_DEMO_SEND_HK_TOPICID": 6417,
+      "GPIO_DEMO_HK_TLM_TOPICID" : 2320,
 
       "CHILD_NAME":       "GPIO_DEMO_CHILD",
       "CHILD_PERF_ID":    44,
